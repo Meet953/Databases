@@ -1,0 +1,23 @@
+SELECT department,gender, count(*) from details
+ group by department,gender 
+ with rollup;
+ 
+ SELECT department, avg(age) from details
+ group by department
+ 
+ 
+ #DDL or DML
+ 
+delete from details where firstName = "Jean" and lastName = "Madden";
+
+delete from details where department = 'Nursing';
+
+Alter table details drop column hours
+
+#join
+
+SELECT Persons.LastName, Persons.FirstName, 	Orders.OrderNo	FROM Persons
+FULL JOIN Orders
+ON Persons.P_Id=Orders.P_Id
+ORDER BY Persons.LastName
+
