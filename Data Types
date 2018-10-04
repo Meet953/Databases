@@ -1,0 +1,9 @@
+CREATE TABLE `lab2`.`pizza` (
+  `orderNo` INT NOT NULL AUTO_INCREMENT,
+  `size` ENUM('small','medium','large') NOT NULL,
+  `topping` SET('Ham','Pepperoni','Mushroom','Olives') NOT NULL,
+  PRIMARY KEY (`orderNo`));
+  
+  
+  //ENUM AND SET
+  INSERT INTO `lab2`.`pizza` (`size`, `topping`) VALUES ('large', 'Ham,Mushroom,Olives');
