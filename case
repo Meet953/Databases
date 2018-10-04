@@ -1,0 +1,8 @@
+
+Select count(*), department from details where gender = "M" group by department   ;
+
+
+SELECT department,
+    COUNT(CASE WHEN gender = 'M' then 1 ELSE NULL END) as "Male",
+    COUNT(CASE WHEN gender = 'F' then 1 ELSE NULL END) as "Female"
+from details group by department
