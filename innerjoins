@@ -1,0 +1,83 @@
+#1
+Select Count(*) as "No. of Patients" from patients  ;
+
+#2
+Select * from patients where town = 'Athlone';
+
+#3
+Select * from drugs where cost = 2.95;
+
+#4
+Select * from drugs where cost > 3.50;
+
+#5
+Select * from patients where dateOfBirth = (Select max(dateofBirth) from patients);
+
+#6
+Select * from patients where dateOfBirth = (Select min(dateofBirth) from patients);
+
+#7
+SELECT * FROM doctors;
+
+#8
+Select * from doctors order by lastName DESC;
+
+#9
+Select * from doctors where firstName like '%a';
+
+#10
+Select speciality, gender, Count(*) from doctors group by speciality, gender with rollup;
+Select speciality, Count(*) from doctors group by speciality with rollup;
+
+
+#11
+Select * from prescriptions where date_perscribed > 20120731;
+Select * from prescriptions where date_perscribed > '2012-07-31';
+
+#12
+#inner join
+Select distinct firstName, lastName from patients 
+inner join prescriptions
+on patients.pat_id = prescriptions.pat_id;
+
+#inner query
+Select distinct firstName, lastName from patients  
+where pat_id in (Select pat_id from prescriptions);
+
+#13
+#inner join
+Select count(*) from prescriptions 
+inner join doctors
+on doctors.doc_id = prescriptions.doc_id where speciality = 'Audiologist';
+
+#inner query
+Select count(*) from prescriptions 
+where doc_id = (Select doc_id from doctors where speciality = 'Audiologist' ) ;
+
+#14
+#inner join
+Select distinct drug_name from drugs 
+inner join prescriptions
+on drugs.drug_id = prescriptions.drug_id; 
+
+#inner query
+Select distinct drug_name from drugs where
+drug_id in (Select drug_id from prescriptions);
+
+#15
+
+Select distinct drug_name from drugs where
+drug_id not in (Select drug_id from prescriptions);
+
+
+Select distinct drug_name from drugs
+left join prescriptions
+on drugs.drug_id = prescriptions.drug_id
+where prescriptions.drug_id is null;
+
+Select drugs.drug_id, drug_name from drugs
+left join prescriptions
+on drugs.drug_id = prescriptions.drug_id
+order by prescriptions.drug_id
+limit 1; 
+
