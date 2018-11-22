@@ -1,0 +1,4 @@
+Perf_Record,Cell_ID,Record_Description,Date,Value,
+4,101,Num Mobile Nodes,2013-01-01 16:10:00.0,200,
+5,102,Avg Handover Latency (ms),2013-01-01 16:31:12.0,400,
+6,102,Dropped Calls,2013-01-01 17:31:12.0,5,
