@@ -1,0 +1,31 @@
+delimiter //
+
+Create procedure update_depart
+(
+	IN id_param INT,
+    IN new_depart_param VARCHAR(30)
+)
+
+begin
+
+declare sql_error tinyint default false;
+
+declare continue handler for sqlexception
+set  sql_error = true;
+
+start transaction;
+
+UPDATE details 
+SET 
+    department = new_depart_param
+WHERE
+    id = id_param;
+
+if sql_error = false then
+select "commit";
+commit;
+
+else
+select "rollback";
+end if;
+end;
