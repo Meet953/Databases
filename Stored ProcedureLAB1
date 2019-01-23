@@ -1,0 +1,87 @@
+1	Create a view to show the full name and department for the details table
+
+
+CREATE VIEW  names_department AS
+SELECT concat(firstName, ' ', LastName), department
+FROM details;
+
+select * from names_department;
+
+
+2	Write a stored procedure named update_department to update the department for a given employee id.  .  The SP will have 2 IN parameters
+Test your stored procedure with the following statement:
+call update department(2, 'Engineering');
+
+
+
+delimiter //
+
+Create procedure update_depart
+(
+	IN id_param INT,
+    IN new_depart_param VARCHAR(30)
+)
+
+begin
+
+declare sql_error tinyint default false;
+
+declare continue handler for sqlexception
+set  sql_error = true;
+
+start transaction;
+
+UPDATE details 
+SET 
+    department = new_depart_param
+WHERE
+    id = id_param;
+
+if sql_error = false then
+select "commit";
+commit;
+
+else
+select "rollback";
+end if;
+end;
+
+
+3	Write a Stored procedure named update_rate_position that will increase the rate for all the employees of a given position by a certain amount.  The SP will have 3 parameters, 2 IN and 1 OUT.    THE SP should store the number of rows updated in the OUT parameter.  A variable named @update_count is supplied for the output parameter.  
+a.	call update_rate_position("Researcher", 20, @update_count);
+b.	To see the value of the OUTPUT param – use select @update_count;
+
+
+delimiter //
+
+Create procedure update_rate_position 
+(
+	IN  pos_param VARCHAR(30),
+    IN rate_param INT,
+    OUT update_count INT
+)
+
+begin
+
+declare sql_error tinyint default false;
+
+declare continue handler for sqlexception
+set  sql_error = true;
+
+start transaction;
+
+UPDATE details 
+SET 
+    rate = rate+rate_param
+WHERE
+    position = pos_param;
+
+if sql_error = false then
+SET UPDATE_COUNT  =1;
+select "commit";
+commit;
+
+else
+select "rollback";
+end if;
+end;
