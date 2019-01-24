@@ -1,0 +1,15 @@
+
+DROP TRIGGER IF EXISTS orders_after_insert;
+
+DELIMITER //
+CREATE  TRIGGER orders_after_insert
+    AFTER INSERT on orders
+    FOR EACH ROW
+BEGIN
+    INSERT INTO orders_audit VALUES
+    (NEW.order_id, NEW.customer_id, "INSERTED", NOW());
+    
+END//
+
+INSERT INTO orders VALUES (1215, 11, '2009-11-23', '2009-11-28');
+
